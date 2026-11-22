@@ -1,7 +1,9 @@
 === PENGUMPULAN PROGRESS 1 — UAS PEMROGRAMAN DASAR ===
 
 Kelas / Kelompok   : T1[B] / Kelompok-[9]
+
 Judul / Tema       : [Noer Chinefood]
+
 Link Repo Public   : https://github.com/nosyfs/menu-restoran-kantor
 
 Daftar Anggota & Akun GitHub:
