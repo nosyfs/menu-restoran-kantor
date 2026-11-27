@@ -104,3 +104,34 @@ function tentukanPersentaseDiskon(status: string, totalBelanja: number): number 
 
     return persenDiskon; // Mengembalikan persentase diskon (angka 0..15)
 }
+// Fungsi bertipe number dengan parameter: membulatkan nominal pembayaran ke bawah ke kelipatan ratusan
+function bulatkanKeRatusan(nominal: number): number {
+    // Menggunakan operator aritmatika modulo (%) dan pengurangan (-)
+    const sisa: number = nominal % KELIPATAN_BULAT;
+    return nominal - sisa;
+}
+
+// Fungsi bertipe boolean dengan parameter: memvalidasi input bilangan bulat positif (bukan NaN dan > 0)
+function validasiBilanganBulatPositif(nilai: number): boolean {
+    // Menggunakan operator perbandingan dan logika (&&, !, >)
+    if (Number.isNaN(nilai) || !Number.isInteger(nilai) || nilai <= 0) {
+        return false; // Input tidak valid
+    }
+    return true; // Input valid
+}
+
+// Fungsi bertipe void tanpa parameter: menampilkan daftar menu restoran ke terminal
+function tampilkanDaftarMenu(): void {
+    console.log("\n============================================================");
+    console.log("                  DAFTAR MENU NOER CHINEFOOD              ");
+    console.log("============================================================");
+    // Menggunakan perulangan for standar dengan index
+    for (let i: number = 0; i < daftarMenu.length; i++) {
+        const m: Menu = daftarMenu[i]!; // Mengambil elemen menu pada index ke-i
+        const statusTersedia: string = m.tersedia ? "Tersedia" : "Habis"; // Operator ternary
+        console.log(
+            `${i + 1}. [${m.id}] ${m.nama} (${m.kategori}) - Rp${m.harga.toLocaleString("id-ID")} | ${statusTersedia}`
+        );
+    }
+    console.log("============================================================");
+}
