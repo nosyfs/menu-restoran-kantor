@@ -53,3 +53,54 @@ let daftarPesanan: Pesanan[] = [
     { id: "P002", menuId: "D001", namaMenu: "Es Teh", kategori: "Minuman", harga: 5000, porsi: 2 },
 ];
 
+// [PROGRESS 2 - Jumat, 27 Nov 2026] FUNGSI BANTU & PERHITUNGAN BERTIPE
+// Mencakup: fungsi dengan return nilai hitung, fungsi void, operator aritmatika,
+// perbandingan, logika, compound, dan seleksi kondisi (if, switch, nested 3 tingkat)
+// ----------------------------------------------------------------------------
+
+// Fungsi bertipe number dengan parameter: menghitung subtotal satu pesanan (harga * porsi)
+function hitungSubtotal(harga: number, porsi: number): number {
+    // Menggunakan operator aritmatika perkalian (*)
+    return harga * porsi;
+}
+
+// Fungsi bertipe number tanpa parameter: menghitung total seluruh pesanan menggunakan loop for...of & compound (+=)
+function hitungTotalBelanja(): number {
+    let total: number = 0; // Inisialisasi akumulator total belanja
+    for (const item of daftarPesanan) {
+        const subtotal: number = hitungSubtotal(item.harga, item.porsi); // Hitung subtotal tiap item
+        total += subtotal; // Menggunakan operator compound assignment (+=)
+    }
+    return total; // Mengembalikan total belanja sebelum diskon
+}
+
+// Fungsi bertipe number dengan parameter: menentukan persentase diskon berdasarkan status dan total belanja
+// Memuat seleksi kondisi if majemuk (&&) dan nested 3 tingkat (if -> if/else if -> kondisi nominal)
+function tentukanPersentaseDiskon(status: string, totalBelanja: number): number {
+    let persenDiskon: number = 0; // Nilai default diskon 0%
+
+    // Tingkat 1: cek status pembeli
+    if (status === "pegawai") {
+        // Tingkat 2: cek apakah memenuhi syarat minimal diskon pegawai
+        if (totalBelanja >= BATAS_DISKON_KECIL && totalBelanja > 0) {
+            // Tingkat 3: tentukan besaran persentase berdasarkan nominal total belanja
+            if (totalBelanja >= BATAS_DISKON_BESAR) {
+                persenDiskon = 15; // Diskon 15% untuk pegawai belanja >= Rp100.000
+            } else {
+                persenDiskon = 10; // Diskon 10% untuk pegawai belanja Rp50.000 - Rp99.999
+            }
+        }
+    } else if (status === "umum") {
+        // Tingkat 2: cek apakah memenuhi syarat minimal diskon umum
+        if (totalBelanja >= BATAS_DISKON_KECIL && totalBelanja > 0) {
+            // Tingkat 3: tentukan besaran persentase berdasarkan nominal total belanja
+            if (totalBelanja >= BATAS_DISKON_BESAR) {
+                persenDiskon = 10; // Diskon 10% untuk umum belanja >= Rp100.000
+            } else {
+                persenDiskon = 5; // Diskon 5% untuk umum belanja Rp50.000 - Rp99.999
+            }
+        }
+    }
+
+    return persenDiskon; // Mengembalikan persentase diskon (angka 0..15)
+}
